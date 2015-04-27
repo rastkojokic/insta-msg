@@ -20,6 +20,7 @@ group :test do
   gem 'shoulda'
 
   gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
   gem 'capybara-webkit'
   gem 'vcr'
   gem 'webmock'
