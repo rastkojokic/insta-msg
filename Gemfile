@@ -14,3 +14,13 @@ group :development, :test do
   gem 'byebug'
 end
 
+group :test do
+  gem 'rspec-its'
+  gem 'rspec-rails'
+  gem 'shoulda'
+
+  gem 'cucumber-rails', :require => false
+  gem 'capybara-webkit'
+  gem 'vcr'
+  gem 'webmock'
+end
