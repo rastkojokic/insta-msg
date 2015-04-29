@@ -8,7 +8,7 @@ class CheckInController < ApplicationController
   def create
     create_check_in
 
-    redirect_to chat_index_path
+    redirect_to home_index_path
   end
 
   private
@@ -23,7 +23,7 @@ class CheckInController < ApplicationController
 
   def check_session
     if check_in_present?
-      redirect_to chat_index_path
+      redirect_to home_index_path
     end
   end
 
