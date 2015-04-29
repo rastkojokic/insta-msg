@@ -1,7 +1,39 @@
 <h1>Chat#index</h1>
 
 <%= label_tag :username, "username:" %>
-<span> <%= session[:check_in]["username"] %> </span>
+<span id="usernameSpan">
+  <%= session[:check_in]["username"] %>
+</span>
 
 <%= label_tag :dialect, "dialect:" %>
-<span> <%= dialect_display_name(session[:check_in]["dialect"]) %> </span>
+<span id="dialectSpan">
+  <%= dialect_display_name(session[:check_in]["dialect"]) %>
+</span>
+
+<br>
+<textarea id="newMessageTextArea"></textarea>
+
+<br>
+<button id="triggerBtn">Trigger Event</button>
+
+<div id="messageList">
+</div>
+
+<script>
+  var dispatcher = new WebSocketRails("localhost:3000/websocket")
+  var username = $("#usernameSpan").html()
+
+  dispatcher.trigger('client_connected', { "username": username })
+
+  dispatcher.bind('new_message', function(data) {
+    $("#messageList").append("<hr><p>" + data.message + "</p><p>" + data.time + "</p><p>" + data.username + "</p>")
+  });
+
+  $("#triggerBtn").click(function() {
+    var text = $("#newMessageTextArea").val()
+    var time = new Date()
+    var message = { "text": text, "time": time, "username": username }
+
+    dispatcher.trigger('new_message', message)
+  })
+</script>

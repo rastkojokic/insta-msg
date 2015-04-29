@@ -9,7 +9,7 @@ class ChatController < WebsocketRails::BaseController
   end
 
   def new_message
-    new_message = {:message => 'this is a message'}
+    new_message = { :message => message["text"], :time => message["time"], :username => message["username"] }
 
     broadcast_message :new_message, new_message
   end
