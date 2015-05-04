@@ -1,0 +1,27 @@
+<div class="half-div">
+  <label for="usernameSpan">Hi </label>
+  <span id="usernameSpan">
+    <%= session[:check_in]["username"] %>,
+  </span>
+
+  <br>
+  <label for="dialectSpan">dialect:</label>
+  <span id="dialectSpan">
+    <%= dialect_display_name(session[:check_in]["dialect"]) %>
+  </span>
+
+  <br>
+  <textarea id="newMessageTextArea"></textarea>
+
+  <br>
+  <button id="triggerBtn">Send</button>
+
+  <div id="messageList">
+  </div>
+</div>
+
+<div class="half-div">
+  <h2>Online users</h2>
+  <ul id="onlineUsersList">
+  </ul>
+</div>
