@@ -14,26 +14,10 @@
 <textarea id="newMessageTextArea"></textarea>
 
 <br>
-<button id="triggerBtn">Trigger Event</button>
+<button id="triggerBtn">Send</button>
 
 <div id="messageList">
 </div>
 
-<script>
-  var dispatcher = new WebSocketRails("localhost:3000/websocket")
-  var username = $("#usernameSpan").html()
-
-  dispatcher.trigger('client_connected', { "username": username })
-
-  dispatcher.bind('new_message', function(data) {
-    $("#messageList").append("<hr><p>" + data.message + "</p><p>" + data.time + "</p><p>" + data.username + "</p>")
-  });
-
-  $("#triggerBtn").click(function() {
-    var text = $("#newMessageTextArea").val()
-    var time = new Date()
-    var message = { "text": text, "time": time, "username": username }
-
-    dispatcher.trigger('new_message', message)
-  })
-</script>
+<ul id="onlineUsersList">
+</ul>
