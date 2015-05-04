@@ -5,18 +5,18 @@ class Chat
     @subscribe_to_user_disconnected()
 
   publish_user_connected: ->
-    @dispatcher.trigger("client_connected", { "username": @username })
+    @dispatcher.trigger("user_connected", { "username": @username })
 
   subscribe_to_new_message: ->
     @dispatcher.bind 'new_message', (data) ->
       $('#messageList').append '<hr><p>' + data.message + '</p><p>' + data.time + '</p><p>' + data.username + '</p>'
 
   subscribe_to_user_connected: ->
-    @dispatcher.bind 'client_connected', (data) ->
+    @dispatcher.bind 'user_connected', (data) ->
       $('#onlineUsersList').html '<li>' + data.connected_users + '</li>'
 
   subscribe_to_user_disconnected: ->
-    @dispatcher.bind 'client_disconnected', (data) ->
+    @dispatcher.bind 'user_disconnected', (data) ->
       $('#onlineUsersList').html '<li>' + data.connected_users + '</li>'
 
 $ ->
@@ -27,7 +27,8 @@ $ ->
 
   $(window).bind 'beforeunload', ->
     message = 'username': chat.username
-    chat.dispatcher.trigger 'client_disconnected', message
+    chat.dispatcher.trigger 'user_disconnected', message
+    return
 
   $("#triggerBtn").click ->
     text = $("#newMessageTextArea").val()

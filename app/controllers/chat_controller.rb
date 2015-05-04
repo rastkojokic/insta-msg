@@ -3,19 +3,19 @@ class ChatController < WebsocketRails::BaseController
     controller_store[:connected_users] = []
   end
 
-  def client_connected
+  def user_connected
     unless controller_store[:connected_users].include?(message["username"])
       controller_store[:connected_users] << message["username"] 
     end
 
-    broadcast_message :client_connected, 
+    broadcast_message :user_connected, 
                       { :connected_users => controller_store[:connected_users] }
   end
 
-  def client_disconnected
+  def user_disconnected
     controller_store[:connected_users].delete(message["username"])
 
-    broadcast_message :client_disconnected, 
+    broadcast_message :user_disconnected, 
                       { :connected_users => controller_store[:connected_users] }
   end
 

@@ -1,11 +1,11 @@
 module ChatHelper
   def dialect_display_name(dialect_value)
     if dialect_value == "pirate"
-      "Pirate"
+      "pirate"
     elsif dialect_value == "yoda"
-      "Yoda"
+      "yoda"
     elsif dialect_value == "valley_girl"
-      "Valley Girl"
+      "valley Girl"
     end
   end
 end

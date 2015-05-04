@@ -1,23 +1,27 @@
-<h1>Chat#index</h1>
+<div class="half-div">
+  <label for="usernameSpan">Hi </label>
+  <span id="usernameSpan">
+    <%= session[:check_in]["username"] %>,
+  </span>
 
-<%= label_tag :username, "username:" %>
-<span id="usernameSpan">
-  <%= session[:check_in]["username"] %>
-</span>
+  <br>
+  <label for="dialectSpan">dialect:</label>
+  <span id="dialectSpan">
+    <%= dialect_display_name(session[:check_in]["dialect"]) %>
+  </span>
 
-<%= label_tag :dialect, "dialect:" %>
-<span id="dialectSpan">
-  <%= dialect_display_name(session[:check_in]["dialect"]) %>
-</span>
+  <br>
+  <textarea id="newMessageTextArea"></textarea>
 
-<br>
-<textarea id="newMessageTextArea"></textarea>
+  <br>
+  <button id="triggerBtn">Send</button>
 
-<br>
-<button id="triggerBtn">Send</button>
-
-<div id="messageList">
+  <div id="messageList">
+  </div>
 </div>
 
-<ul id="onlineUsersList">
-</ul>
+<div class="half-div">
+  <h2>Online users</h2>
+  <ul id="onlineUsersList">
+  </ul>
+</div>
