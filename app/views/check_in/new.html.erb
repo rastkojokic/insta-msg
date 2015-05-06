@@ -1,11 +1,16 @@
-<h1>New check-in</h1>
+<div class="new-checkin-div">
+  <h1>New check-in</h1>
 
-<%= form_tag check_in_create_path do %>
-  <%= label_tag :username, "username:" %>
-  <%= text_field_tag :username %>
+  <%= form_tag check_in_create_path do %>
+    <label for="username">Username: </label>
+    <input id="username" type="text" name="username" class="form-control"></input>
 
-  <%= label_tag :dialect, "dialect:" %>
-  <%= select_tag "dialect", options_for_select(dialect_select_options) %>
+    <br>
+    <label for="dialect">Dialect:</label>
+    <br>
+    <%= select_tag "dialect", options_for_select(dialect_select_options) %>
 
-  <%= submit_tag "Check In" %>
-<% end %>
+    <br>
+    <%= submit_tag "Check In", :class => "btn btn-default checkin-button" %>
+  <% end %>
+</div>

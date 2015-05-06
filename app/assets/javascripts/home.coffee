@@ -9,19 +9,22 @@ class Chat
 
   subscribe_to_new_message: ->
     @dispatcher.bind 'new_message', (data) ->
-      $('#messageList').append '<hr><p>' + data.message + '</p><p>' + data.time + '</p><p>' + data.username + '</p>'
+      $('#messageList').append("<div><div>" + data.username + " at <span>" + data.time + "</span></div><div><img src='/" + data.dialect + ".png'><span class='messageTextSpan'>" + data.message + "<span></div></div>")
 
   subscribe_to_user_connected: ->
     @dispatcher.bind 'user_connected', (data) ->
-      $('#onlineUsersList').html '<li>' + data.connected_users + '</li>'
+      $('#onlineUsersList').html("") 
+      
+      for user in data.connected_users
+        $('#onlineUsersList').append("<div>" + user + "</div>") 
 
   subscribe_to_user_disconnected: ->
     @dispatcher.bind 'user_disconnected', (data) ->
       $('#onlineUsersList').html '<li>' + data.connected_users + '</li>'
 
 $ ->
-  chat = new Chat($("#usernameSpan").html(), 
-                  $("#dialectSpan").html(), 
+  chat = new Chat($("#username").val(), 
+                  $("#dialect").val(), 
                   new WebSocketRails("localhost:3000/websocket"))
   chat.publish_user_connected()
 
@@ -30,11 +33,12 @@ $ ->
     chat.dispatcher.trigger 'user_disconnected', message
     return
 
-  $("#triggerBtn").click ->
+  $("#sendBtn").click ->
     text = $("#newMessageTextArea").val()
     time = new Date
     message = 
       "text": text
       "time": time
       "username": chat.username
+      "dialect": chat.dialect
     chat.dispatcher.trigger("new_message", message)
