@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 
 gem 'websocket-rails'
+gem "twitter-bootstrap-rails"
 
 group :development, :test do
   gem 'byebug'

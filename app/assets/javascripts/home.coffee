@@ -9,11 +9,14 @@ class Chat
 
   subscribe_to_new_message: ->
     @dispatcher.bind 'new_message', (data) ->
-      $('#messageList').append '<hr><p>' + data.message + '</p><p>' + data.time + '</p><p>' + data.username + '</p>'
+      $('#messageList').append "<div><div>" + data.username + " at <span>" + data.time + "</span></div><div>" + data.message + "</div></div>"
 
   subscribe_to_user_connected: ->
     @dispatcher.bind 'user_connected', (data) ->
-      $('#onlineUsersList').html '<li>' + data.connected_users + '</li>'
+      $('#onlineUsersList').html("") 
+      
+      for user in data.connected_users
+        $('#onlineUsersList').append("<div>" + user + "</div>") 
 
   subscribe_to_user_disconnected: ->
     @dispatcher.bind 'user_disconnected', (data) ->

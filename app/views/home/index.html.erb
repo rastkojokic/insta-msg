@@ -2,29 +2,32 @@
 <input type="hidden" id="username" value="<%= session[:check_in]["username"] %>"/>
 
 <div class="half-div">
-  <label for="usernameSpan">Hi </label>
-  <span id="usernameSpan">
-    <%= session[:check_in]["username"] %>,
-  </span>
+  <div class="info-div">
+    <h3>
+      <span id="usernameSpan">
+        Hi <%= session[:check_in]["username"] %>,
+      </span>
 
-  <br>
-  <label for="dialectSpan">dialect:</label>
-  <span id="dialectSpan">
-    <%= dialect_display_name(session[:check_in]["dialect"]) %>
-  </span>
+      <span id="dialectSpan">
+        dialect: <%= dialect_display_name(session[:check_in]["dialect"]) %>
+      </span>
+    </h3>
+  </div>
 
-  <br>
-  <textarea id="newMessageTextArea"></textarea>
+  <div id="messageList" class="old-messages-div">
+  </div>
 
-  <br>
-  <button id="sendBtn">Send</button>
+  <div class="new-message-div">
+    <br>
+    <textarea class="form-control" rows="3" id="newMessageTextArea"></textarea>
 
-  <div id="messageList">
+    <br>
+    <button id="sendBtn" class="btn btn-default">Send</button>
   </div>
 </div>
 
 <div class="half-div">
   <h2>Online users</h2>
-  <ul id="onlineUsersList">
-  </ul>
+  <div id="onlineUsersList" class="online-users-list">
+  </div>
 </div>
