@@ -20,7 +20,10 @@ class Chat
 
   subscribe_to_user_disconnected: ->
     @dispatcher.bind 'user_disconnected', (data) ->
-      $('#onlineUsersList').html '<li>' + data.connected_users + '</li>'
+      $('#onlineUsersList').html("") 
+      
+      for user in data.connected_users
+        $('#onlineUsersList').append("<div>" + user + "</div>") 
 
 $ ->
   chat = new Chat($("#username").val(), 
