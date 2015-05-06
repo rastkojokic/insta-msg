@@ -32,6 +32,18 @@ class Chat
     $("#goOnline").show()
     @dispatcher.trigger("user_disconnected", { "username": @username })
 
+  publish_new_message: ->
+    text = $("#newMessageTextArea").val()
+    $("#newMessageTextArea").val("")
+    time = new Date
+    message = 
+      "text": text
+      "time": time
+      "username": @username
+      "dialect": @dialect
+    @dispatcher.trigger("new_message", message)
+
+
 $ ->
   chat = new Chat($("#username").val(), 
                   $("#dialect").val(), 
@@ -43,18 +55,10 @@ $ ->
     return
 
   $("#sendBtn").click ->
-    text = $("#newMessageTextArea").val()
-    time = new Date
-    message = 
-      "text": text
-      "time": time
-      "username": chat.username
-      "dialect": chat.dialect
-    chat.dispatcher.trigger("new_message", message)
+    chat.publish_new_message()
 
   $("#goOffline").click ->
     chat.publish_user_disconnected()
-    return
 
   $("#goOnline").click ->
     chat.publish_user_connected()
