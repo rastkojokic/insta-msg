@@ -1,3 +1,6 @@
+<input type="hidden" id="dialect" value="<%= session[:check_in]["dialect"] %>"/>
+<input type="hidden" id="username" value="<%= session[:check_in]["username"] %>"/>
+
 <div class="half-div">
   <label for="usernameSpan">Hi </label>
   <span id="usernameSpan">
@@ -14,7 +17,7 @@
   <textarea id="newMessageTextArea"></textarea>
 
   <br>
-  <button id="triggerBtn">Send</button>
+  <button id="sendBtn">Send</button>
 
   <div id="messageList">
   </div>

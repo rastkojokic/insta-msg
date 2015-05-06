@@ -20,8 +20,8 @@ class Chat
       $('#onlineUsersList').html '<li>' + data.connected_users + '</li>'
 
 $ ->
-  chat = new Chat($("#usernameSpan").html(), 
-                  $("#dialectSpan").html(), 
+  chat = new Chat($("#username").val(), 
+                  $("#dialect").val(), 
                   new WebSocketRails("localhost:3000/websocket"))
   chat.publish_user_connected()
 
@@ -30,11 +30,12 @@ $ ->
     chat.dispatcher.trigger 'user_disconnected', message
     return
 
-  $("#triggerBtn").click ->
+  $("#sendBtn").click ->
     text = $("#newMessageTextArea").val()
     time = new Date
     message = 
       "text": text
       "time": time
       "username": chat.username
+      "dialect": chat.dialect
     chat.dispatcher.trigger("new_message", message)
