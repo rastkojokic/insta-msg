@@ -4,9 +4,6 @@ class Chat
     @subscribe_to_user_connected()
     @subscribe_to_user_disconnected()
 
-  publish_user_connected: ->
-    @dispatcher.trigger("user_connected", { "username": @username })
-
   subscribe_to_new_message: ->
     @dispatcher.bind 'new_message', (data) ->
       $('#messageList').append("<div><div>" + data.username + " at <span>" + data.time + "</span></div><div><img src='/" + data.dialect + ".png'><span class='messageTextSpan'>" + data.message + "<span></div></div>")
@@ -25,6 +22,16 @@ class Chat
       for user in data.connected_users
         $('#onlineUsersList').append("<div>" + user + "</div>") 
 
+  publish_user_connected: ->
+    $("#goOffline").show()
+    $("#goOnline").hide()
+    @dispatcher.trigger("user_connected", { "username": @username })
+
+  publish_user_disconnected: ->
+    $("#goOffline").hide()
+    $("#goOnline").show()
+    @dispatcher.trigger("user_disconnected", { "username": @username })
+
 $ ->
   chat = new Chat($("#username").val(), 
                   $("#dialect").val(), 
@@ -32,8 +39,7 @@ $ ->
   chat.publish_user_connected()
 
   $(window).bind 'beforeunload', ->
-    message = 'username': chat.username
-    chat.dispatcher.trigger 'user_disconnected', message
+    chat.publish_user_disconnected()
     return
 
   $("#sendBtn").click ->
@@ -45,3 +51,11 @@ $ ->
       "username": chat.username
       "dialect": chat.dialect
     chat.dispatcher.trigger("new_message", message)
+
+  $("#goOffline").click ->
+    chat.publish_user_disconnected()
+    return
+
+  $("#goOnline").click ->
+    chat.publish_user_connected()
+
