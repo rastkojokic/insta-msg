@@ -9,7 +9,7 @@ class Chat
 
   subscribe_to_new_message: ->
     @dispatcher.bind 'new_message', (data) ->
-      $('#messageList').append "<div><div>" + data.username + " at <span>" + data.time + "</span></div><div>" + data.message + "</div></div>"
+      $('#messageList').append("<div><div>" + data.username + " at <span>" + data.time + "</span></div><div><img src='/" + data.dialect + ".png'><span class='messageTextSpan'>" + data.message + "<span></div></div>")
 
   subscribe_to_user_connected: ->
     @dispatcher.bind 'user_connected', (data) ->

@@ -25,7 +25,8 @@ class ChatController < WebsocketRails::BaseController
 
     new_message = { :message => translated_text,
                     :time => message["time"], 
-                    :username => message["username"] }
+                    :username => message["username"],
+                    :dialect => message["dialect"] }
 
     broadcast_message :new_message, new_message
   end
